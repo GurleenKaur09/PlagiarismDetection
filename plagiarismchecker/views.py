@@ -4,6 +4,8 @@ from plagiarismchecker.algorithm import main
 from docx import *
 from plagiarismchecker.algorithm import fileSimilarity
 import PyPDF2 
+from PyPDF2 import PdfReader
+import fitz
 
 # Create your views here.
 #home
@@ -34,30 +36,50 @@ def filetest(request):
             value += para.text
 
     elif str(request.FILES['docfile']).endswith(".pdf"):
-        def pdf_view(request):
-            with open(request.FILES['docfile'], 'rb') as pdf:
-                response = HttpResponse(pdf.read(), content_type='application/pdf')
-                response['Content-Disposition'] = 'inline'
-                return response
+        # def pdf_view(request):
+        #     pdfFile = open(request.FILES['docfile'], mode='rb')
+        #     with pdfFile as pdf:
+        #         response = HttpResponse(pdf.read(), content_type='application/pdf')
+        #         response['Content-Disposition'] = 'inline'
+        #         return response
+            
+        reader = PdfReader(request.FILES['docfile'])
+ 
+        # printing number of pages in pdf file
+        print(len(reader.pages))
+        
+        # getting a specific page from the pdf file
+        page = reader.pages[0]
+        
+        # extracting text from page
+        text = page.extract_text()
+        print(text)
+        value += text
+        # with fitz.open("request.FILES['docfile']") as doc:
+        #     text = ""
+        #     for page in doc:
+        #         text += page.get_text()
 
-        # creating a pdf file object 
+        # print(text)
+        # value += text
+
+        # # creating a pdf file object 
         # pdfFileObj = open(request.FILES['docfile'], 'rb') 
 
-        # creating a pdf reader object 
+        # # creating a pdf reader object 
         # pdfReader = PyPDF2.PdfFileReader(pdfFileObj) 
 
-        # printing number of pages in pdf file 
+        # # printing number of pages in pdf file 
         # print(pdfReader.numPages) 
 
-        # creating a page object 
+        # # creating a page object 
         # pageObj = pdfReader.getPage(0) 
 
-        # extracting text from page 
-        # print(pageObj.extractText()) 
+        # # extracting text from page
+        # print(pageObj.extractText())
 
-        # closing the pdf file object 
+        # # closing the pdf file object 
         # pdfFileObj.close() 
-
 
     percent,link = main.findSimilarity(value)
     print("Output...................!!!!!!!!",percent,link)
