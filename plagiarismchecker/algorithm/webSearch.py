@@ -4,8 +4,8 @@ from googleapiclient.discovery import build
 # searchEngine_API = 'AIzaSyAoEYif8sqEYvj1P6vYLw6CGMrQbDMmaq8'
 # searchEngine_API = 'AIzaSyCUYy9AtdMUddiNA0gOcsGPQcE372ytyCw'
 # searchEngine_API = 'AIzaSyAQYLRBBeDQNxADPQtUnApntz78-urWEZI'
-searchEngine_API = 'AIzaSyCAeR7_6TTKzoJmSwmOuHZvKcVg_lhqvCc'
-searchEngine_Id = '758ad3e78879f0e08'
+searchEngine_API = 'AIzaSyDvqJAaNy4ViDvnCUy-5h6mFVJmGC4bqXw'
+searchEngine_Id = '44c6fd34c42e54a24'
 
 def searchWeb(text, output, c):
     text = text
